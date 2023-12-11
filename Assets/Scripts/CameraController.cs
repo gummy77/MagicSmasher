@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
+    /*
+        Simple Camera Follower.
+    */
+
     [Header("Editor Controls")]
     [SerializeField]
     private float positionFollowSpeed;
@@ -15,20 +19,37 @@ public class CameraController : MonoBehaviour
     private Transform positionTarget;
     [SerializeField]
     private Transform rotationTarget;
+    [SerializeField]
+    private Transform followTarget;
 
 
-    void LateUpdate()
+    private Vector3 velocity = Vector3.zero;
+    private Vector3 tVelocity = Vector3.zero;
+
+    void Update() {
+        setPosition();
+        setRotation();
+    }
+
+    void setPosition() {
+        if(positionTarget == null) return; //makes sure target exists
+        followTarget.position = positionTarget.position;
+    }
+    void setRotation() {
+        if(rotationTarget == null) return; //makes sure target exists
+        followTarget.rotation = rotationTarget.rotation;
+    }
+
+    void FixedUpdate()
     {
         trackPosition();
         trackRotation();
     }
 
     private void trackPosition() {
-        if(positionTarget == null) return; //makes sure target exists
-        transform.position = Vector3.Lerp(transform.position, positionTarget.position, Time.deltaTime * positionFollowSpeed); //translates camera position
+        transform.position = Vector3.SmoothDamp(transform.position, followTarget.position, ref velocity, positionFollowSpeed);
     }
     private void trackRotation() {
-        if(rotationTarget == null) return; //makes sure target exists
-        transform.rotation = Quaternion.Slerp(transform.rotation, rotationTarget.rotation, Time.deltaTime * rotationFollowSpeed); //rotates camera
+        transform.rotation = Quaternion.Slerp(transform.rotation, followTarget.rotation, Time.fixedDeltaTime * rotationFollowSpeed); //rotates camera
     }
 }
