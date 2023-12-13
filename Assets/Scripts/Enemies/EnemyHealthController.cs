@@ -9,7 +9,7 @@ public class EnemyHealthController : MonoBehaviour
 
     [SerializeField] private int health;
 
-
+    [SerializeField] private GameObject deathParticles;
 
     void Start(){
         damageParticles = GetComponent<ParticleSystem>();
@@ -21,6 +21,7 @@ public class EnemyHealthController : MonoBehaviour
         damageParticles.Emit(20);
 
         if(health <= 0){
+            Instantiate(deathParticles, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
     }

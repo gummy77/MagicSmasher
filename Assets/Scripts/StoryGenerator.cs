@@ -14,11 +14,6 @@ public class StoryGenerator : MonoBehaviour
     private int currentLetter = 0;
     private float timer = 0;
 
-    void Start()
-    {
-        generateQuest();
-    }
-
     void Update(){
         text.text = questText.Substring(0, currentLetter);
 
@@ -32,28 +27,62 @@ public class StoryGenerator : MonoBehaviour
     [SerializeField] GameObject[] enemies;
 
     [SerializeField] private string[] combatTrial = {
-        "End the Lives of ",
-        "Murder ",
-        "Slay ",
-        "Kill "
+        "end the Lives of",
+        "murder",
+        "slay",
+        "kill",
+        "defeat"
+    };
+
+    [SerializeField] private string[] collectTrial = {
+        "collect",
+        "steal"
     };
 
 
-    void generateQuest(){
-        switch((int)Random.Range(0,0)){ // Quest Type
+    public void generateQuest(){
+        currentLetter = 0;
+        timer = 0;
+        questText = "";
+
+        int enemyCount = (int) Random.Range(1, 10); //amount of enemies for combat trials
+
+
+        switch((int)Random.Range(0,1)){ // Quest Type
+
             case(0): //Combat Trial
-            
-            int enemyCount = (int) Random.Range(1, 10);
+                questText += combatTrial[(int)Random.Range(0, combatTrial.Length)];
+                questText += enemyCount + " ";
+                questText += enemies[0].name;
+                if(enemyCount > 1) questText += "s";
 
-            questText += combatTrial[(int)Random.Range(0, combatTrial.Length)];
-            questText += enemyCount + " ";
-            questText += enemies[0].name;
-            if(enemyCount > 1) questText += "s";
+                questText += ".";
 
-            questText += ".";
+                questManager.spawnCombat(enemyCount, enemies[0]);
+            break;
 
-            questManager.spawnCombat(enemyCount, enemies[0]);
+            case(1): //Combat and Collect Trial
+                questText += combatTrial[(int)Random.Range(0, combatTrial.Length)];
+                questText += enemyCount + " ";
+                questText += enemies[0].name;
+                if(enemyCount > 1) questText += "s";
+
+                questText += " and then ";
+                questText += collectTrial[(int)Random.Range(0, collectTrial.Length)];
+                questText += "their thing";
+
+                questManager.spawnCombat(enemyCount, enemies[0]);
+            break;
+
+            case(2): //Collect Trial
+                questText += collectTrial[(int)Random.Range(0, collectTrial.Length)];
+                questText += "their thing";
+
+                questManager.spawnCombatants(enemyCount, enemies[0]);
             break;
         }
+
+
+        questText = questText.Substring(0, 1).ToUpper() + questText.Substring(1, questText.Length-1);
     }
 }

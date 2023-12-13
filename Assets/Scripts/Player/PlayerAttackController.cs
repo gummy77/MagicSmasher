@@ -14,6 +14,8 @@ public class PlayerAttackController : MonoBehaviour
     [SerializeField] private float meleeAttackRadius;
     [SerializeField] private AudioClip swingAudio;
 
+    [HideInInspector] public bool Shielding;
+
     void Start()
     {
         anim = GetComponent<Animator>();
@@ -22,9 +24,15 @@ public class PlayerAttackController : MonoBehaviour
 
     void Update()
     {
-        if(Input.GetMouseButtonDown(0)){
+        if(Input.GetMouseButton(0) && anim.GetCurrentAnimatorStateInfo(0).IsName("idle")){
             anim.SetTrigger("Attack");
         }
+        if(Input.GetMouseButton(1)){
+            Shielding = true;
+        } else {
+            Shielding = false;
+        }
+        anim.SetBool("Shielding", Shielding);
     }
 
     public void MeleeAttackSound(){

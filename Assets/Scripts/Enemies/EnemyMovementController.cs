@@ -3,19 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemyMovementController : MonoBehaviour
+public abstract class EnemyMovementController : MonoBehaviour
 {
-    private NavMeshAgent nav;
+    [HideInInspector] public NavMeshAgent nav;
+    [HideInInspector] public Transform target;
+    protected Animator anim;
 
+    [SerializeField] protected float movementSpeed;
 
-    [SerializeField] private Transform target;
-
-    void Start(){
+    void Awake(){
         nav = GetComponent<NavMeshAgent>();
-    }
-    
-    void Update(){
-        nav.SetDestination(target.position);
+        anim = GetComponent<Animator>();
     }
 
     public void setTarget(Transform _target){
