@@ -5,15 +5,15 @@ using UnityEngine.AI;
 
 public class GoblinMovementController : EnemyMovementController
 {
-    public float stoppingdistance;
+    [HideInInspector] public float stoppingdistance;
 
     [SerializeField] private bool willRun = false;
     [SerializeField] private float fleeDistance = 3f;
     public bool isfleeing = false;
 
-    void LateStart(){
-        nav.stoppingDistance = stoppingdistance;
-    }
+    // void LateStart(){
+    //     nav.stoppingDistance = stoppingdistance;
+    // }
 
     void Update(){
         float distance = Vector3.Distance(transform.position, target.position);

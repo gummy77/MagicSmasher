@@ -25,8 +25,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1091014773}
   m_LocalRotation: {x: 0.6532815, y: -0.27059805, z: 0.27059805, w: 0.6532815}
-  m_LocalPosition: {x: 0, y: 1.5, z: 1}
-  m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
+  m_LocalPosition: {x: 0, y: 0.15, z: 1}
+  m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 167132009228879754}
@@ -110,11 +110,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 167132009050385517}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
-  m_LocalScale: {x: 1, y: 2, z: 1}
+  m_LocalPosition: {x: 0, y: 0.15, z: 0}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 7400810815049001810}
+  m_Father: {fileID: 1675912347080744393}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &167132009050385488
@@ -186,7 +186,7 @@ GameObject:
   - component: {fileID: 1174345227}
   - component: {fileID: 966216208088889879}
   m_Layer: 7
-  m_Name: Goblin
+  m_Name: Rat
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -205,7 +205,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1091014774}
-  - {fileID: 7400810815049001810}
+  - {fileID: 1675912347080744393}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
@@ -223,7 +223,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nav: {fileID: 0}
   target: {fileID: 0}
-  movementSpeed: 5
+  movementSpeed: 3
   stoppingdistance: 4
   willRun: 0
   fleeDistance: 0
@@ -245,8 +245,8 @@ MonoBehaviour:
   damageLayers:
     serializedVersion: 2
     m_Bits: 64
-  meleeAttackDistance: 1.25
-  meleeAttackRadius: 2
+  meleeAttackDistance: 1
+  meleeAttackRadius: 0.8
 --- !u!114 &167132009228879756
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -259,7 +259,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f3024083e856944d952879cdcf18a25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 5
+  maxHealth: 2
   health: 0
   deathParticles: {fileID: 3808027998235010239, guid: 6111af77c534f9542b150d0cbc34dbac, type: 3}
 --- !u!136 &167132009228879755
@@ -272,10 +272,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.65
-  m_Height: 2
+  m_Radius: 0.5
+  m_Height: 1
   m_Direction: 1
-  m_Center: {x: 0, y: 1, z: 0}
+  m_Center: {x: 0, y: 0.25, z: 0}
 --- !u!198 &167132009228879758
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -911,9 +911,9 @@ ParticleSystem:
     boxThickness: {x: 0, y: 0, z: 0}
     radiusThickness: 1
     donutRadius: 0.2
-    m_Position: {x: 0, y: 1, z: 0}
+    m_Position: {x: 0, y: 0.25, z: 0}
     m_Rotation: {x: -90, y: 0, z: 0}
-    m_Scale: {x: 1, y: 1, z: 2}
+    m_Scale: {x: 1, y: 1, z: 0.4}
     placementMode: 0
     m_MeshMaterialIndex: 0
     m_MeshNormalOffset: 0
@@ -5124,7 +5124,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 167132009228879753}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 1
+  m_Radius: 0.5
   m_Speed: 5
   m_Acceleration: 8
   avoidancePriority: 50
@@ -5133,7 +5133,7 @@ NavMeshAgent:
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
-  m_Height: 2
+  m_Height: 0.5
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 1
@@ -5253,7 +5253,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!1 &5642463651504697705
+--- !u!1 &6294308361138206889
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5261,7 +5261,7 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 7400810815049001810}
+  - component: {fileID: 1675912347080744393}
   m_Layer: 7
   m_Name: Model
   m_TagString: Untagged
@@ -5269,13 +5269,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &7400810815049001810
+--- !u!4 &1675912347080744393
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5642463651504697705}
+  m_GameObject: {fileID: 6294308361138206889}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}

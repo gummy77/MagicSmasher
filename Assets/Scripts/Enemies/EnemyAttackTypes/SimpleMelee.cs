@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GoblinMeleeAttackController : MonoBehaviour
+public class SimpleMelee : MonoBehaviour
 {
     private GoblinMovementController movement;
     private Animator anim;
@@ -25,7 +25,11 @@ public class GoblinMeleeAttackController : MonoBehaviour
         anim = GetComponent<Animator>();
         audioSouce = GetComponent<AudioSource>();
         target = movement.target;
+        movement.stoppingdistance = meleeAttackDistance + (meleeAttackRadius);
+        movement.nav.stoppingDistance = meleeAttackDistance + (meleeAttackRadius);
     }
+
+    
 
     void Update() {
         if(movement.nav.remainingDistance <= movement.stoppingdistance){

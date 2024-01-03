@@ -8,15 +8,15 @@ public class PlayerMovementController : MonoBehaviour
     Script for moving player based on keyboard controls, as well as other factors
     */
 
-    private Rigidbody rb;
+    private CharacterController cc;
     private Animator anim;
     private AudioSource audioSouce;
 
     [Header("Movement")]
     [SerializeField] private float moveSpeedModifier;
-    [SerializeField] private LayerMask groundLayerMask;
     [SerializeField] private float jumpStrength;
-    private bool isGrounded;
+    [SerializeField] private float gravity = 20.0f;
+    private bool isSprinting;
 
     [Header("Rotation")]
     [SerializeField] private Transform head;
@@ -27,20 +27,35 @@ public class PlayerMovementController : MonoBehaviour
 
     [Header("Sounds")]
     [SerializeField] private AudioClip[] stepSounds;
+    [SerializeField] private float stepSpeed;
+    private float stepTimer;
     [SerializeField] private AudioClip jumpSound;
+
+    private Vector3 moveDirection;
 
     void Start()
     {
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
-        rb = GetComponent<Rigidbody>();
+        cc = GetComponent<CharacterController>();
         anim = GetComponent<Animator>();
         audioSouce = GetComponent<AudioSource>();
     }
 
     void Update() {
-        updatePosition();
-        updateRotation();
+        if(Cursor.lockState == CursorLockMode.Locked){
+            if (Input.GetKey(KeyCode.Escape)) {
+                Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.None;
+            }
+            updatePosition();
+            updateRotation();
+        } else {
+            if (Input.GetMouseButton(0)){
+                Cursor.visible = false;
+                Cursor.lockState = CursorLockMode.Locked;
+            }
+        }
     }
 
     void updatePosition()
@@ -51,25 +66,44 @@ public class PlayerMovementController : MonoBehaviour
 
         //turn into vector
         Vector3 MoveVector = (transform.forward * _inputY) + (transform.right * _inputX);
-        MoveVector = Vector3.Normalize(MoveVector) * MoveVector.magnitude;
+        //MoveVector = Vector3.Normalize(MoveVector) * MoveVector.magnitude;
 
-        anim.SetFloat("Speed", MoveVector.magnitude);
+        //if sprinting add speed
+        if (Input.GetKey("left shift")) {
+            isSprinting = true;
+            MoveVector *= 2;
+        } else {
+            isSprinting = false;
+        }
 
         //update position
-        rb.Move(transform.position + (MoveVector * moveSpeedModifier * 0.1f), transform.rotation);
+        float movementDirectionY = moveDirection.y;
+        moveDirection += (MoveVector * moveSpeedModifier * 0.1f);
 
-        RaycastHit hit;
-        if (Physics.Raycast(transform.position + (Vector3.up*0.1f), -Vector3.up, out hit, 0.2f, groundLayerMask)){
-            isGrounded = true;
-        }else {
-            isGrounded = false;
-        }
-        anim.SetBool("AirBorne", !isGrounded);
+        //Clamp Speed and add drag
+        moveDirection *= 0.9f;
+        moveDirection = Vector3.ClampMagnitude(moveDirection, (moveSpeedModifier * (isSprinting ? 2f : 4f)));
 
-        if(Input.GetKeyDown("space") && isGrounded){
-            rb.AddForce(transform.up * jumpStrength * 50);
+        if(Input.GetButton("Jump") && cc.isGrounded){
+            moveDirection.y = jumpStrength;
             audioSouce.PlayOneShot(jumpSound, 0.5f);
+        } else {
+            moveDirection.y = movementDirectionY;
         }
+
+        if (!cc.isGrounded)
+        {
+            moveDirection.y -= gravity * Time.deltaTime;
+        } else {
+            
+            if(stepTimer >= stepSpeed && Mathf.Abs(moveDirection.x + moveDirection.z) / 2 >= 1.5f) {
+                PlayStepSound();
+                stepTimer = Random.Range(0.0f, stepSpeed/6);
+            }
+        }
+        stepTimer += Time.deltaTime * (isSprinting ? 1.75f : 1);
+
+        cc.Move(moveDirection * Time.deltaTime);
     }
 
     void updateRotation()
@@ -83,8 +117,8 @@ public class PlayerMovementController : MonoBehaviour
 
         //apply rotation
         currentXRotation += _rotationX;
-        head.localEulerAngles = new Vector3(currentXRotation, 0, 0);
-        transform.Rotate(transform.rotation.x, _rotationY, transform.rotation.z);
+        head.localRotation = Quaternion.Euler(currentXRotation, 0, 0);
+        transform.rotation *= Quaternion.Euler(0, _rotationY, 0);
     }
 
     public void PlayStepSound(){

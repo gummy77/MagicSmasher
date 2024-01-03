@@ -27,12 +27,6 @@ public class PlayerAttackController : MonoBehaviour
         if(Input.GetMouseButton(0) && anim.GetCurrentAnimatorStateInfo(0).IsName("idle")){
             anim.SetTrigger("Attack");
         }
-        if(Input.GetMouseButton(1)){
-            Shielding = true;
-        } else {
-            Shielding = false;
-        }
-        anim.SetBool("Shielding", Shielding);
     }
 
     public void MeleeAttackSound(){
