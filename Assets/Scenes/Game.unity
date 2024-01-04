@@ -123,6 +123,69 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 23800000, guid: bdb7d78a4de9e364fa0a6cc69c52b3f7, type: 2}
+--- !u!1001 &227976423
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 2
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 167132009228879753, guid: eaadb7b045272544bbdd29827f26b0d7, type: 3}
+      propertyPath: m_Name
+      value: Rat
+      objectReference: {fileID: 0}
+    - target: {fileID: 167132009228879754, guid: eaadb7b045272544bbdd29827f26b0d7, type: 3}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 167132009228879754, guid: eaadb7b045272544bbdd29827f26b0d7, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 167132009228879754, guid: eaadb7b045272544bbdd29827f26b0d7, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 167132009228879754, guid: eaadb7b045272544bbdd29827f26b0d7, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -2.342
+      objectReference: {fileID: 0}
+    - target: {fileID: 167132009228879754, guid: eaadb7b045272544bbdd29827f26b0d7, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 167132009228879754, guid: eaadb7b045272544bbdd29827f26b0d7, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 167132009228879754, guid: eaadb7b045272544bbdd29827f26b0d7, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 167132009228879754, guid: eaadb7b045272544bbdd29827f26b0d7, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 167132009228879754, guid: eaadb7b045272544bbdd29827f26b0d7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 167132009228879754, guid: eaadb7b045272544bbdd29827f26b0d7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: 167132009228879754, guid: eaadb7b045272544bbdd29827f26b0d7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5481809081868684382, guid: eaadb7b045272544bbdd29827f26b0d7, type: 3}
+      propertyPath: fleeModifier
+      value: 4
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_AddedGameObjects: []
+  m_SourcePrefab: {fileID: 100100000, guid: eaadb7b045272544bbdd29827f26b0d7, type: 3}
 --- !u!1 &383868637
 GameObject:
   m_ObjectHideFlags: 0
@@ -170,8 +233,8 @@ GameObject:
   m_Name: Cube (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &410126601
 Transform:
@@ -1444,8 +1507,8 @@ GameObject:
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &1362101094
 Transform:
@@ -1693,8 +1756,8 @@ GameObject:
   m_Name: Cube (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &2008329037
 Transform:
@@ -1824,7 +1887,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemies:
-  - {fileID: 167132009228879753, guid: 21de5ea9a0972b64a872d72987f68d4e, type: 3}
   - {fileID: 167132009228879753, guid: eaadb7b045272544bbdd29827f26b0d7, type: 3}
   combatTrial:
   - 'End the Lives of '
@@ -1858,6 +1920,10 @@ PrefabInstance:
     - target: {fileID: 8057585790118866320, guid: 58363fed4b34b5b428ad4e6874192e44, type: 3}
       propertyPath: m_Name
       value: Quest
+      objectReference: {fileID: 0}
+    - target: {fileID: 8057585790118866320, guid: 58363fed4b34b5b428ad4e6874192e44, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8057585790118866323, guid: 58363fed4b34b5b428ad4e6874192e44, type: 3}
       propertyPath: m_Pivot.x

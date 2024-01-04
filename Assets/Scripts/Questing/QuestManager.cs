@@ -66,7 +66,7 @@ public class QuestManager : MonoBehaviour
     public void spawnCombat(int count, GameObject enemy){
         for(int i = count; i > 0; i--){
             GameObject newEnemy = Instantiate(enemy, new Vector3(Random.Range(-5, 5), 0, Random.Range(-5, 5)), Quaternion.identity);
-            newEnemy.GetComponent<EnemyMovementController>().setTarget(player.transform);
+            newEnemy.GetComponent<EnemyController>().setTarget(player.transform);
             toKill.Add(newEnemy);
             entities.Add(newEnemy);
         }
@@ -76,7 +76,7 @@ public class QuestManager : MonoBehaviour
     public void spawnCombatants(int count, GameObject enemy){
         for(int i = count; i > 0; i--){
             GameObject newEnemy = Instantiate(enemy, new Vector3(Random.Range(-5, 5), 0, Random.Range(-5, 5)), Quaternion.identity);
-            newEnemy.GetComponent<EnemyMovementController>().setTarget(player.transform);
+            newEnemy.GetComponent<EnemyController>().setTarget(player.transform);
             entities.Add(newEnemy);
         }
     }

@@ -24,8 +24,8 @@ public class PlayerAttackController : MonoBehaviour
 
     void Update()
     {
-        if(Input.GetMouseButton(0) && anim.GetCurrentAnimatorStateInfo(0).IsName("idle")){
-            anim.SetTrigger("Attack");
+        if(Input.GetMouseButtonDown(0)){
+            MeleeAttackTrigger();
         }
     }
 
@@ -37,9 +37,9 @@ public class PlayerAttackController : MonoBehaviour
         Collider[] hitColliders = Physics.OverlapSphere(transform.position + (transform.forward * meleeAttackDistance) + new Vector3(0, 1, 0), meleeAttackRadius, damageLayers);
         foreach (var hitCollider in hitColliders)
         {
-            EnemyHealthController enemyHealth = hitCollider.gameObject.GetComponent<EnemyHealthController>();
+            EnemyController enemyHealth = hitCollider.gameObject.GetComponent<EnemyController>();
             if(enemyHealth){
-                enemyHealth.TakeDamage(1);
+                enemyHealth.TakeDamage(1, transform.position);
             }
         }
     }
