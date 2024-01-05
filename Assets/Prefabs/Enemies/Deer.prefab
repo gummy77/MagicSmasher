@@ -55,7 +55,7 @@ MonoBehaviour:
   target: {fileID: 0}
   maxHealth: 6
   movementSpeed: 3
-  fleeModifier: 3
+  fleeModifier: 4
   damageParticles: {fileID: 167132009228879758}
   deathParticles: {fileID: 3808027998235010239, guid: 6111af77c534f9542b150d0cbc34dbac, type: 3}
 --- !u!136 &167132009228879755

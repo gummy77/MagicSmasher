@@ -56,7 +56,7 @@ public abstract class EnemyController : MonoBehaviour
 
     protected void Flee(){
         if(nav.remainingDistance <= nav.stoppingDistance) {
-            Vector3 runTo = transform.position + (Vector3.Normalize(transform.position - fleeingFrom) * 1) + new Vector3(Random.Range(-5, 5), 0, Random.Range(-5, 5));
+            Vector3 runTo = transform.position + (Vector3.Normalize(transform.position - fleeingFrom) * 1) + new Vector3(Random.Range(-8, 8), 0, Random.Range(-8, 8));
             nav.speed = Random.Range(movementSpeed * (fleeModifier/2), movementSpeed * fleeModifier);
             nav.SetDestination(runTo);
         }
