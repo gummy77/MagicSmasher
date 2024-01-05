@@ -16,6 +16,12 @@ public class PlayerAttackController : MonoBehaviour
 
     [HideInInspector] public bool Shielding;
 
+    [Header("magic hehe")]
+    [SerializeField] private GameObject fireball;
+
+    [Header("Misc")]
+    [SerializeField] private UIController uiController;
+
     void Start()
     {
         anim = GetComponent<Animator>();
@@ -25,7 +31,11 @@ public class PlayerAttackController : MonoBehaviour
     void Update()
     {
         if(Input.GetMouseButtonDown(0)){
-            MeleeAttackTrigger();
+            MeleeAttackSound();
+            uiController.Trigger("punch");
+        }
+        if(Input.GetMouseButtonDown(1)){
+            Instantiate(fireball, transform.position + (transform.forward * 2.0f), transform.rotation);
         }
     }
 
@@ -34,9 +44,14 @@ public class PlayerAttackController : MonoBehaviour
     }
 
     public void MeleeAttackTrigger(){
-        Collider[] hitColliders = Physics.OverlapSphere(transform.position + (transform.forward * meleeAttackDistance) + new Vector3(0, 1, 0), meleeAttackRadius, damageLayers);
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position + (transform.forward * meleeAttackDistance), meleeAttackRadius, damageLayers, QueryTriggerInteraction.Collide);
         foreach (var hitCollider in hitColliders)
         {
+            if(hitCollider.gameObject.layer == 8) {
+                hitCollider.transform.rotation = transform.rotation;
+                hitCollider.gameObject.GetComponent<Projectile>().Parried();
+                return;
+            }
             EnemyController enemyHealth = hitCollider.gameObject.GetComponent<EnemyController>();
             if(enemyHealth){
                 enemyHealth.TakeDamage(1, transform.position);
@@ -47,6 +62,6 @@ public class PlayerAttackController : MonoBehaviour
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position + (transform.forward * meleeAttackDistance) + new Vector3(0, 1, 0), meleeAttackRadius);
+        Gizmos.DrawWireSphere(transform.position + (transform.forward * meleeAttackDistance), meleeAttackRadius);
     }
 }

@@ -84,19 +84,17 @@ public class PlayerMovementController : MonoBehaviour
         moveDirection *= 0.9f;
         moveDirection = Vector3.ClampMagnitude(moveDirection, (moveSpeedModifier * (isSprinting ? 2f : 4f)));
 
-        if(Input.GetButton("Jump") && cc.isGrounded){
+        if(Input.GetButton("Jump") && cc.isGrounded){ //jump when pressed
             moveDirection.y = jumpStrength;
             audioSouce.PlayOneShot(jumpSound, 0.5f);
         } else {
             moveDirection.y = movementDirectionY;
         }
 
-        if (!cc.isGrounded)
-        {
-            moveDirection.y -= gravity * Time.deltaTime;
+        if (!cc.isGrounded) {
+            moveDirection.y -= gravity * Time.deltaTime; //if in air add gravity to make player fall
         } else {
-            
-            if(stepTimer >= stepSpeed && Mathf.Abs(moveDirection.x + moveDirection.z) / 2 >= 1.5f) {
+            if(stepTimer >= stepSpeed && Mathf.Abs(moveDirection.x + moveDirection.z) / 2 >= 1.5f) { //else play footstep sounds when moving
                 PlayStepSound();
                 stepTimer = Random.Range(0.0f, stepSpeed/6);
             }
@@ -109,14 +107,16 @@ public class PlayerMovementController : MonoBehaviour
     void updateRotation()
     {
         //read mouse inputs
-        float _rotationX = -Input.GetAxis("Mouse Y") * rotationSpeedModifier;
-        float _rotationY = Input.GetAxis("Mouse X") * vertRotationSpeedModifier;
+        float _rotationX = -Input.GetAxis("Mouse Y") * rotationSpeedModifier * Time.deltaTime * 10.0f;
+        float _rotationY = Input.GetAxis("Mouse X") * vertRotationSpeedModifier * Time.deltaTime * 10.0f;
+
+        //apply rotation
+        currentXRotation += _rotationX;
 
         //clamp the vertical axis
         currentXRotation = Mathf.Clamp(currentXRotation, -rotateLimits.x, rotateLimits.y);
 
-        //apply rotation
-        currentXRotation += _rotationX;
+        //apply rotation to transforms
         head.localRotation = Quaternion.Euler(currentXRotation, 0, 0);
         transform.rotation *= Quaternion.Euler(0, _rotationY, 0);
     }

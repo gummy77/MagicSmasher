@@ -140,6 +140,7 @@ MonoBehaviour:
   target: {fileID: 0}
   maxHealth: 3
   movementSpeed: 3
+  fleeModifier: 10
   damageParticles: {fileID: 167132009228879758}
   deathParticles: {fileID: 3808027998235010239, guid: 6111af77c534f9542b150d0cbc34dbac, type: 3}
 --- !u!136 &167132009228879755
@@ -5046,7 +5047,7 @@ AudioSource:
   m_GameObject: {fileID: 167132009228879753}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: a7452adef69cb2a99a5306db679b7316, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
