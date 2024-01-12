@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerAttackController : MonoBehaviour
+public class PlayerMouseController : MonoBehaviour
 {
     private Animator anim;
     private AudioSource audioSouce;
@@ -19,8 +19,11 @@ public class PlayerAttackController : MonoBehaviour
     [Header("magic hehe")]
     [SerializeField] private GameObject fireball;
 
-    [Header("Misc")]
+    [Header("UI")]
     [SerializeField] private UIController uiController;
+
+
+    
 
     void Start()
     {
@@ -30,12 +33,25 @@ public class PlayerAttackController : MonoBehaviour
 
     void Update()
     {
-        if(Input.GetMouseButtonDown(0)){
-            MeleeAttackSound();
-            uiController.Trigger("punch");
-        }
-        if(Input.GetMouseButtonDown(1)){
-            Instantiate(fireball, transform.position + (transform.forward * 2.0f), transform.rotation);
+        RaycastHit hit;
+        bool rayHit = Physics.Raycast(transform.position, transform.forward, out hit, 5f);
+
+        uiController.setPickup(false);
+
+        switch (rayHit ? hit.collider.gameObject.tag : null) {
+            case("quest"):
+                uiController.setPickup(true);
+            break;
+
+            default:
+                if(Input.GetMouseButtonDown(0)){
+                    MeleeAttackSound();
+                    uiController.Trigger("punch");
+                }
+                if(Input.GetMouseButtonDown(1)){
+                    Instantiate(fireball, transform.position + (transform.forward * 2.0f), transform.rotation);
+                }
+            break;
         }
     }
 

@@ -47,7 +47,7 @@ public class PlayerHealthController : MonoBehaviour
 
     public void revive(){
         GetComponent<PlayerMovementController>().enabled = true;
-        GetComponent<PlayerAttackController>().enabled = true;
+        GetComponent<PlayerMouseController>().enabled = true;
         health = maxHealth;
     }
 

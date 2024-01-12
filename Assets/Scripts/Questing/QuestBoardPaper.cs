@@ -17,4 +17,9 @@ public class QuestBoardPaper : MonoBehaviour
     private void setupPaper(){
         questText.text = thisQuest.getText();
     }
+
+    public Quest pickup() {
+        Destroy(gameObject, 0.05f);
+        return thisQuest;
+    }
 }
